@@ -1,25 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { loginAPI } from './redux/authSlice';
 
-function App() {
+export default function App() {
+  const dispatch = useDispatch();
+  const authUser = useSelector((state) => state.auth.user);
+
+  const handleLogin = () => {
+    // const res = await axios.post('http://localhost:8000/auth/login', {
+    //   emailOrMobile: 'a@gmail.com',
+    //   password: '123456',
+    // });
+
+    // localStorage.setItem('accessToken', res.data.accessToken)
+    // const user = jwtDecode(res.data.accessToken)
+    // dispatch { type: 'auth/login', payload: user }
+    // dispatch login(user)
+    dispatch(loginAPI('a@gmail.com', '123456'));
+
+    // dispatch fn() {}
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{ textAlign: 'center' }}>
+      <h1>{authUser ? authUser.email : 'Guest'}</h1>
+      <div>
+        <input />
+      </div>
+      <div>
+        <input />
+      </div>
+      <button onClick={handleLogin}>Login</button>
     </div>
   );
 }
-
-export default App;
